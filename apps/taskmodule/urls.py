@@ -5,4 +5,4 @@ urlpatterns = [
     path('task',views.task),
     path('tasks/<int:tid>', views.tasks)
     
-]
+] 
