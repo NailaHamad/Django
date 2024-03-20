@@ -1,43 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Task</title>
-    <style> 
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        
-        th, td {
-            border: 1px solid #f0f0f0;
-            text-align: left;
-            padding: 8px;
-        }
-        
-        tr:nth-child(even) {
-            background-color: #dddd;
-        }
-        
-        th {
-            background-color: #f0f0f0;
-            color: black;
-        }
-        
-    </style>
-</head>
-<body>
-    <table id="task-table">
-        <thead>
-            <tr>
-                <th>Task Name</th>
-                <th>Task Priority</th>
-                <th>Task Section</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-</body>
-</html>
+{% extends "layouts/base1.html" %}
+
+{% block title %} Add Task {% endblock %}
+
+{% block stylesheets %}
+<style> 
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+<h2>Add Task</h2>
+<form action="add-task" method="POST">
+    {% csrf_token %}
+    <label for="task_name">Task Name:</label>
+    <input type="text" id="task_name" name="task_name" required><br><br>
+    
+    <label for="task_priority">Task Priority:</label>
+    <select id="task_priority" name="task_priority">
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+    </select><br><br>
+    
+    <label for="task_section">Task Section:</label>
+    <input type="text" id="task_section" name="task_section" required><br><br>
+    
+    <input type="submit" value="Add Task">
+</form>
+
+<hr> <!-- Add a horizontal line for separation -->
+
+<h2>Task List</h2>
+<table id="task-table">
+    <thead>
+        <tr>
+            <th>Task Name</th>
+            <th>Task Priority</th>
+            <th>Task Section</th>
+        </tr>
+    </thead>
+    <tbody>
+       
+    </tbody>
+</table>
+{% endblock %}

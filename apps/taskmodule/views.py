@@ -24,3 +24,10 @@ def tasks(request, tid):
     if targetT == None : return redirect('/')
     
     return render(request, 'taskmodule/tasks.html', context) # rendering the template
+
+
+def addTask(request):
+    
+    return render(request, 'taskmodule/tasks.html') # rendering the template
+
+
