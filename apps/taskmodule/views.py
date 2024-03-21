@@ -31,3 +31,14 @@ def addTask(request):
     return render(request, 'taskmodule/tasks.html') # rendering the template
 
 
+def today(request):
+    
+    return render(request, 'taskmodule/today.html') # rendering the template
+
+def projects(request):
+    
+    return render(request, 'taskmodule/projects.html') # rendering the template
+
+def teams(request):
+    
+    return render(request, 'taskmodule/team.html') # rendering the template
