@@ -42,3 +42,7 @@ def projects(request):
 def teams(request):
     
     return render(request, 'taskmodule/team.html') # rendering the template
+
+def task_form(request):
+    if request.method = "POST":
+        value = request.POST.get('task_name')
