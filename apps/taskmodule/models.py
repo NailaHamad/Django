@@ -1,7 +1,8 @@
 from django.db import models
 
-class Task(models.Model):
-    Task_Name = models.CharField()
-    Task_Priority = models.CharField()
-    Task_Section = models.CharField()
-    
+class activity(models.Model):
+    name = models.CharField(max_length=50)
+    category = models.CharField(max_length=50)
+
+    class Meta:
+        app_label = 'taskmodule'

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-
+from .models import activity
 
 def index(request):
     # study the request
@@ -86,8 +86,21 @@ def __getTask():
 
 
 def search_filter(request):
-    return render(request, 'taskmodule/search_filter.html')
-    
+    if request.method == "POST":
+        string = request.POST.get('keyword')
+        isName = request.POST.get('option1')
+        isCategory = request.POST.get('option2')
+        # now filter
+        tasks =  __getTask()
+        newTasks = []
+        for item in tasks:
+            contained = False
+            if isName and string in item['name'].lower(): contained = True
+            if not contained and isCategory and string in item['category'].lower():contained = True
+            if contained: newTasks.append(item)
+        return render(request, 'taskmodule/tasks.html',{'tasks': newTasks})
+    return render(request, 'taskmodule/search_filter.html', {})
+                
 
 
 #def task_form(request):
