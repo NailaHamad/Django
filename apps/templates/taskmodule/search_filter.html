@@ -1,0 +1,38 @@
+{% extends "layouts/base1.html" %}
+
+{% block title %} Projects {% endblock %}
+
+{% block stylesheets %}
+<style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    th, td {
+      border: 1px solid #FF9494; 
+      padding: 8px;
+      text-align: left;
+    }
+    
+    th {
+      background-color: #FF9494; 
+      color: white; 
+    }
+    </style>
+{% endblock stylesheets %}
+
+{% block content %}
+<form method="post">
+  {% csrf_token %} 
+  <label>Keywords:</label>
+  <input type="text" name="keyword" placeholder="enter a keyword"/>
+  <br/> 
+  <label>Search in:</label>
+  <input type="checkbox" name="option1"/><label>name</label>
+  <input type="checkbox" name="option2"/><label>category</label>
+  <br/>
+  
+  <button type="submit" >Search</button>
+ </form>
+{% endblock %}

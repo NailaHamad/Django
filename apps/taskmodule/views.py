@@ -9,21 +9,8 @@ def task(request):
     # study the request
     return render(request, 'taskmodule/task.html') # rendering the template
 
-def tasks(request, tid):
-    # study the request
-    task1 = {'id':123, 'priority':'high', 'sec': 'study'}
-    task2 = {'id':456, 'priority':'low', 'sec': 'shop'}
-    
-    targetT =None
-    
-    if task1['id'] == tid : targetT=task1
-    if task2['id'] == tid : targetT=task2
-    
-    context= {'task':targetT}
-    
-    if targetT == None : return redirect('/')
-    
-    return render(request, 'taskmodule/tasks.html', context) # rendering the template
+def tasks(request):
+    return render(request, 'taskmodule/tasks.html',{'tasks': __getTask()}) # rendering the template
 
 
 def addTask(request):
@@ -43,6 +30,66 @@ def teams(request):
     
     return render(request, 'taskmodule/team.html') # rendering the template
 
-def task_form(request):
-    if request.method = "POST":
-        value = request.POST.get('task_name')
+def __getTask():
+    free_time_activities_list = []
+    act1 = {'name':'Running in the park', 'category': 'Sports and Fitness'}
+    free_time_activities_list.append(act1)
+    act2 = {'name':'Yoga or meditation session', 'category': 'Sports and Fitness'}
+    act3 = {'name':'Playing basketball or soccer', 'category': 'Sports and Fitness'}
+    act4 = {'name':'Cycling or hiking trails', 'category': 'Sports and Fitness'} 
+    act5 = {'name':'Painting or drawing', 'category': 'Hobbies and Crafts'}
+    act6 = {'name':'Knitting or crocheting', 'category': 'Hobbies and Crafts'}
+    act7 = {'name':'Woodworking or DIY projects', 'category': 'Hobbies and Crafts'}
+    act8 = {'name':'Gardening or planting', 'category': 'Hobbies and Crafts'}
+    act9 = {'name':'Watching a movie or TV series', 'category': 'Entertainmen'}  
+    act10 = {'name':'Playing video games', 'category': 'Entertainmen'}
+    act11 = {'name':'Listening to music or podcasts', 'category': 'Entertainmen'}
+    act12 = {'name':'Reading a book or magazine', 'category': 'Entertainmen'} 
+    act13 = {'name':'Online courses or tutorials', 'category': 'Learning and Skill Development'} 
+    act14 = {'name':'Learning a new language', 'category': 'Learning and Skill Development'} 
+    act15 = {'name':'Coding or programming projects', 'category': 'Learning and Skill Development'} 
+    act16 = {'name':'Cooking or baking new recipes', 'category': 'Learning and Skill Development'} 
+    act17 = {'name': 'Organizing a virtual hangout with friends', 'category': 'Social Activities'}
+    act18 = {'name': 'Attending a local community event', 'category': 'Social Activities'}
+    act19 = {'name': 'Volunteering for a cause', 'category': 'Social Activities'}
+    act20 = {'name': 'Hosting a game night or potluck', 'category': 'Social Activities'}
+    act21 = {'name': 'Taking a bubble bath', 'category': 'Relaxation and Self-care'}
+    act22 = {'name': 'Practicing mindfulness or meditation', 'category': 'Relaxation and Self-care'}
+    act23 = {'name': 'Pampering with skincare or spa treatments', 'category': 'Relaxation and Self-care'}
+    act24 = {'name': 'Journaling or writing reflections', 'category': 'Relaxation and Self-care'}
+    free_time_activities_list.append(act2)
+    free_time_activities_list.append(act3)
+    free_time_activities_list.append(act4)
+    free_time_activities_list.append(act5)
+    free_time_activities_list.append(act6)
+    free_time_activities_list.append(act7)
+    free_time_activities_list.append(act8)
+    free_time_activities_list.append(act9)
+    free_time_activities_list.append(act10)
+    free_time_activities_list.append(act11)
+    free_time_activities_list.append(act12)
+    free_time_activities_list.append(act13)
+    free_time_activities_list.append(act14)
+    free_time_activities_list.append(act15)
+    free_time_activities_list.append(act16)
+    free_time_activities_list.append(act17)
+    free_time_activities_list.append(act18)
+    free_time_activities_list.append(act19)
+    free_time_activities_list.append(act20)
+    free_time_activities_list.append(act21)
+    free_time_activities_list.append(act22)
+    free_time_activities_list.append(act23)
+    free_time_activities_list.append(act24)
+    
+    return free_time_activities_list
+    
+
+
+def search_filter(request):
+    return render(request, 'taskmodule/search_filter.html')
+    
+
+
+#def task_form(request):
+#    if request.method = "POST":
+#        value = request.POST.get('task_name')

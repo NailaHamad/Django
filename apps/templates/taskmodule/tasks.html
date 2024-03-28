@@ -1,8 +1,39 @@
 {% extends "layouts/base1.html" %}
 
-{%block title%} task {{task.id}} {%endblock%}
+{%block title%} task {%endblock%}
+{% block stylesheets %}
+<style>
+    #activity-table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    #activity-table th, #activity-table td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }
+    #activity-table th {
+        background-color: #f2f2f2; 
+        color: black;
+    }
+    #activity-table tr:nth-child(even) {
+        background-color: #f2f2f2; 
+    }
+</style>
+{% endblock stylesheets %}
+
 {%block content%}
-<p> tasks of the day </p>
-<p> {{task.priority}}  </p>
-<p> {{task.sec}}  <p>
+<table id="activity-table">
+        <tr>
+            <th>name</th>
+            <th>category</th>
+        </tr>
+        {%for t in tasks%}
+        <tr>
+            <td> {{t.name}}</td>
+            <td> {{t.category}} </td>
+        </tr>
+
+        {% endfor %}
+</table>
 {%endblock%}
