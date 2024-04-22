@@ -109,6 +109,7 @@ def search_filter(request):
         TaskObjs = activity.objects.filter(Q(category__icontains = 'Learning and Skill Development')&
         (Q(name__contains = 'a') | Q(name__contains = 'or')) )
         
+        total = activity.objects.filter(name__contains = 'a').count()
         total_ent = activity.objects.filter(category__contains = 'Entertainmen').count()
         
         
