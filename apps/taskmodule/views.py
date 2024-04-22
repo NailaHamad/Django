@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import activity
+from django.db.models import Q
+from django.db.models import Count, Min, Max, Sum, Avg
 
 def index(request):
     # study the request
@@ -37,22 +39,31 @@ def __getTask():
     act2 = {'name':'Yoga or meditation session', 'category': 'Sports and Fitness'}
     act3 = {'name':'Playing basketball or soccer', 'category': 'Sports and Fitness'}
     act4 = {'name':'Cycling or hiking trails', 'category': 'Sports and Fitness'} 
+    
     act5 = {'name':'Painting or drawing', 'category': 'Hobbies and Crafts'}
     act6 = {'name':'Knitting or crocheting', 'category': 'Hobbies and Crafts'}
     act7 = {'name':'Woodworking or DIY projects', 'category': 'Hobbies and Crafts'}
     act8 = {'name':'Gardening or planting', 'category': 'Hobbies and Crafts'}
+    
+    
     act9 = {'name':'Watching a movie or TV series', 'category': 'Entertainmen'}  
     act10 = {'name':'Playing video games', 'category': 'Entertainmen'}
     act11 = {'name':'Listening to music or podcasts', 'category': 'Entertainmen'}
     act12 = {'name':'Reading a book or magazine', 'category': 'Entertainmen'} 
+    
+    
     act13 = {'name':'Online courses or tutorials', 'category': 'Learning and Skill Development'} 
     act14 = {'name':'Learning a new language', 'category': 'Learning and Skill Development'} 
     act15 = {'name':'Coding or programming projects', 'category': 'Learning and Skill Development'} 
     act16 = {'name':'Cooking or baking new recipes', 'category': 'Learning and Skill Development'} 
+    
+    
     act17 = {'name': 'Organizing a virtual hangout with friends', 'category': 'Social Activities'}
     act18 = {'name': 'Attending a local community event', 'category': 'Social Activities'}
     act19 = {'name': 'Volunteering for a cause', 'category': 'Social Activities'}
     act20 = {'name': 'Hosting a game night or potluck', 'category': 'Social Activities'}
+    
+    
     act21 = {'name': 'Taking a bubble bath', 'category': 'Relaxation and Self-care'}
     act22 = {'name': 'Practicing mindfulness or meditation', 'category': 'Relaxation and Self-care'}
     act23 = {'name': 'Pampering with skincare or spa treatments', 'category': 'Relaxation and Self-care'}
@@ -90,7 +101,17 @@ def search_filter(request):
         string = request.POST.get('keyword')
         isName = request.POST.get('option1')
         isCategory = request.POST.get('option2')
+        
+        
         # now filter
+        myTask = activity.objects.filter(category__icontains='sport')
+        
+        TaskObjs = activity.objects.filter(Q(category__icontains = 'Learning and Skill Development')&
+        (Q(name__contains = 'a') | Q(name__contains = 'or')) )
+        
+        total_ent = activity.objects.filter(category__contains = 'Entertainmen').count()
+        
+        
         tasks =  __getTask()
         newTasks = []
         for item in tasks:
