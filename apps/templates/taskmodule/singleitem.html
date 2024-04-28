@@ -44,12 +44,12 @@
         <tr>
             <th>name</th>
             <th>category</th>
+            <th>price</th>
         </tr>
-        {% for act in activities %}
         <tr>
-            <td> {{act.name}}</td>
-            <td> {{act.category}} </td>
+            <td> {{task.name}}</td>
+            <td> {{task.category}} </td>
+            <td> {{task.price}}</td>
         </tr>
-        {%endfor%}
 </table>
 {%endblock%}

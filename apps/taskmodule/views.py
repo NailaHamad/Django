@@ -7,13 +7,33 @@ def index(request):
     # study the request
     return render(request, 'taskmodule/index.html') # rendering the template
 
+
 def taskform(request):
     # study the request
-    return render(request, 'taskmodule/task.html') # rendering the template
+    return render(request, 'taskmodule/taskform.html') # rendering the template
 
-def tasks(request, tId):
+def activityform(request):
+    # study the request
+    return render(request, 'taskmodule/activityform.html') # rendering the template
+def itemform(request):
+    # study the request
+    return render(request, 'taskmodule/itemform.html') # rendering the template
+
+
+
+def singleitem(request, tId):
+    obj = items.objects.get(id = tId)
+    return render(request, 'taskmodule/singlitem.html', {'item':obj}) # rendering the template
+
+def singletask(request, tId):
     obj = task.objects.get(id = tId)
-    return render(request, 'taskmodule/tasks.html', {'task':obj}) # rendering the template
+    return render(request, 'taskmodule/singletask.html', {'task':obj}) # rendering the template
+
+def singleactivity(request, tId):
+    obj = activity.objects.get(id = tId)
+    return render(request, 'taskmodule/singleactivity.html', {'activity':obj}) # rendering the template
+
+
 
 def add_task(request):
     if request.method == 'POST':
@@ -23,31 +43,47 @@ def add_task(request):
  
         obj = task.objects.create(name= nameval, priority = priorityval,category = categoryval)
         obj.save()
-        return redirect('tasks', tId = obj.id)
+        return redirect('singletask', tId = obj.id)
     return render(request, "taskmodule/taskform.html", {})
 
-
 def add_activity(request):
-    pass
+    if request.method == 'POST':
+        nameval = request.POST.get('activity_name')
+        categoryval = request.POST.get('activity_category')
+        obj = activity.objects.create(name= nameval,category = categoryval)
+        obj.save()
+        return redirect('singleactivity', aId = obj.id)
+    return render(request, "taskmodule/taskform.html", {})
     
 def add_item(request):
-    pass
-def edit_activity(request):
-    pass
-def edit_item(request):
-    pass
+    if request.method == 'POST':
+        nameval = request.POST.get('items_name')
+        categoryval = request.POST.get('items_category')
+        priceval = request.POST.get('items_price')
+ 
+        obj = task.objects.create(name= nameval,category = categoryval, price = priceval)
+        obj.save()
+        return redirect('singleitem', tId = obj.id)
+    return render(request, "taskmodule/itemform.html", {})
+
+
 def display_activity(request):
     obj= activity.objects.all()
     context= {'activity': obj}
     return render(request,'taskmodule/display_activity.html' , context )
 
-def books(request):
-    books = Book.objects.all()
-    return render(request, 'bookmodule/bookList.html', {'books': books})
 def display_item(request):
     pass
+
+
+
+def update_item(request):
+    pass
+
+
 def list_activity(request):
     pass
+
 def list_item(request):
     pass
 """"
@@ -162,35 +198,6 @@ def search_filter(request):
         return render(request, 'taskmodule/tasks.html',{'tasks': newTasks})
     return render(request, 'taskmodule/search_filter.html', {}) 
 
-def add_task(request):
-    if request.method == 'POST':
-        nameval = request.POST.get('name')
-        categoryval = request.POST.get('category')
-        obj = activity(name= nameval, category = categoryval)
-        obj.save()
-        return redirect('tasks', tId = obj.id)
-    return render(request, "taskmodule/task.html", {})
-
-
-def add_activity(request):
-    pass
-    
-def add_item(request):
-    pass
-def edit_activity(request):
-    pass
-def edit_item(request):
-    pass
-def display_activity(request):
-    obj= activity.objects.all()
-    context= {'activity': obj}
-    return render(request,'taskmodule/tasks.html' , context )
-def display_item(request):
-    pass
-def list_activity(request):
-    pass
-def list_item(request):
-    pass
 #def task_form(request):
 #    if request.method = "POST":
 #        value = request.POST.get('task_name')
