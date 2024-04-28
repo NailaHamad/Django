@@ -46,10 +46,11 @@
             <th>priority</th>
             <th>category</th>
         </tr>
+        {% for act in activities %}
         <tr>
-            <td> {{task.name}}</td>
-            <td> {{task.priority}}</td>
-            <td> {{task.category}} </td>
+            <td> {{act.name}}</td>
+            <td> {{act.category}} </td>
         </tr>
+        {%endfor%}
 </table>
 {%endblock%}

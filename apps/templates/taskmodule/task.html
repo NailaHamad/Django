@@ -11,25 +11,18 @@
 <h2>Add Task</h2>
 <form action="add-task" method="POST">
     {% csrf_token %}
+    
     <label for="task_name">Task Name:</label>
     <input type="text" id="task_name" name="task_name" required><br><br>
     
     <label for="task_priority">Task Priority:</label>
-    <select id="task_priority" name="task_priority">
-        <option value="low">Low</option>
-        <option value="medium">Medium</option>
-        <option value="high">High</option>
-    </select><br><br>
+    <input type="text" id="task_priority" name="task_priority" required><br><br>
     
-    <label for="task_section">Task Section:</label>
-    <input type="text" id="task_section" name="task_section" required><br><br>
-    
-    <label for="task_description">Task description:</label>
-    <textarea name="description" rows="10" cols="30"></textarea> <br><br>
+    <label for="task_category">Task Category:</label>
+    <input type="text" id="task_category" name="task_category" required><br><br>
 
-    <button type="submit"> Add Task </button>
+    <button type="submit">Add Task</button>
 </form>
-
 <hr> <!-- Add a horizontal line for separation -->
 
 

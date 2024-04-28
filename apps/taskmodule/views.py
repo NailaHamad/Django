@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import activity
+from .models import activity, items, task
 from django.db.models import Q
 from django.db.models import Count, Min, Max, Sum, Avg
 
@@ -7,19 +7,55 @@ def index(request):
     # study the request
     return render(request, 'taskmodule/index.html') # rendering the template
 
-def task(request):
+def taskform(request):
     # study the request
     return render(request, 'taskmodule/task.html') # rendering the template
 
-def tasks(request):
-    return render(request, 'taskmodule/tasks.html',{'tasks': __getTask()}) # rendering the template
+def tasks(request, tId):
+    obj = task.objects.get(id = tId)
+    return render(request, 'taskmodule/tasks.html', {'task':obj}) # rendering the template
+
+def add_task(request):
+    if request.method == 'POST':
+        nameval = request.POST.get('task_name')
+        priorityval = request.POST.get('task_priority')
+        categoryval = request.POST.get('task_category')
+ 
+        obj = task.objects.create(name= nameval, priority = priorityval,category = categoryval)
+        obj.save()
+        return redirect('tasks', tId = obj.id)
+    return render(request, "taskmodule/taskform.html", {})
 
 
+def add_activity(request):
+    pass
+    
+def add_item(request):
+    pass
+def edit_activity(request):
+    pass
+def edit_item(request):
+    pass
+def display_activity(request):
+    obj= activity.objects.all()
+    context= {'activity': obj}
+    return render(request,'taskmodule/display_activity.html' , context )
+
+def books(request):
+    books = Book.objects.all()
+    return render(request, 'bookmodule/bookList.html', {'books': books})
+def display_item(request):
+    pass
+def list_activity(request):
+    pass
+def list_item(request):
+    pass
+""""
 def addTask(request):
     
     return render(request, 'taskmodule/tasks.html') # rendering the template
 
-
+"""
 def today(request):
     
     return render(request, 'taskmodule/today.html') # rendering the template
@@ -92,8 +128,7 @@ def __getTask():
     free_time_activities_list.append(act23)
     free_time_activities_list.append(act24)
     
-    return free_time_activities_list
-    
+    return free_time_activities_list 
 
 
 def search_filter(request):
@@ -109,6 +144,10 @@ def search_filter(request):
         TaskObjs = activity.objects.filter(Q(category__icontains = 'Learning and Skill Development')&
         (Q(name__contains = 'a') | Q(name__contains = 'or')) )
         
+        objs = items.objects.aggregate(count_gt=Count('price', filter=Q(price__gt=0)))
+        
+        number_of_items= items.objects.aggregate(count= Count('id'))
+        
         total = activity.objects.filter(name__contains = 'a').count()
         total_ent = activity.objects.filter(category__contains = 'Entertainmen').count()
         
@@ -121,10 +160,37 @@ def search_filter(request):
             if not contained and isCategory and string in item['category'].lower():contained = True
             if contained: newTasks.append(item)
         return render(request, 'taskmodule/tasks.html',{'tasks': newTasks})
-    return render(request, 'taskmodule/search_filter.html', {})
-                
+    return render(request, 'taskmodule/search_filter.html', {}) 
+
+def add_task(request):
+    if request.method == 'POST':
+        nameval = request.POST.get('name')
+        categoryval = request.POST.get('category')
+        obj = activity(name= nameval, category = categoryval)
+        obj.save()
+        return redirect('tasks', tId = obj.id)
+    return render(request, "taskmodule/task.html", {})
 
 
+def add_activity(request):
+    pass
+    
+def add_item(request):
+    pass
+def edit_activity(request):
+    pass
+def edit_item(request):
+    pass
+def display_activity(request):
+    obj= activity.objects.all()
+    context= {'activity': obj}
+    return render(request,'taskmodule/tasks.html' , context )
+def display_item(request):
+    pass
+def list_activity(request):
+    pass
+def list_item(request):
+    pass
 #def task_form(request):
 #    if request.method = "POST":
 #        value = request.POST.get('task_name')
