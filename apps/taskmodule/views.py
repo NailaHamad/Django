@@ -23,7 +23,7 @@ def itemform(request):
 
 def singleitem(request, tId):
     obj = items.objects.get(id = tId)
-    return render(request, 'taskmodule/singlitem.html', {'item':obj}) # rendering the template
+    return render(request, 'taskmodule/singleitem.html', {'item':obj}) # rendering the template
 
 def singletask(request, tId):
     obj = task.objects.get(id = tId)
@@ -61,7 +61,7 @@ def add_item(request):
         categoryval = request.POST.get('items_category')
         priceval = request.POST.get('items_price')
  
-        obj = task.objects.create(name= nameval,category = categoryval, price = priceval)
+        obj = items.objects.create(name= nameval,category = categoryval, price = priceval)
         obj.save()
         return redirect('singleitem', tId = obj.id)
     return render(request, "taskmodule/itemform.html", {})
@@ -73,36 +73,50 @@ def display_activity(request):
     return render(request,'taskmodule/display_activity.html' , context )
 
 def display_item(request):
-    pass
+    obj= items.objects.all()
+    context= {'items': obj}
+    return render(request,'taskmodule/display_item.html' , context )
+
+def display_task(request):
+    obj= task.objects.all()
+    context= {'task': obj}
+    return render(request,'taskmodule/display_task.html' , context )
 
 
+def update_item(request, tId):
+    obj = items.objects.get(id = tId)
+    if request.method == 'POST':
+        form = itemform(request.POST, instance=obj)
+        if form.is_valid():
+            obj.save()
+            return redirect('book', bId = obj.id )
+        
+    form = itemform(instance=obj)
+    return render(request, "taskmodule/updateitem.html", {'form':form})
 
-def update_item(request):
-    pass
 
+def search_filter(request):
+    if request.method == "POST":
+        string = request.POST.get('keyword')
+        isName = request.POST.get('option1')
+        isCategory = request.POST.get('option2')
 
-def list_activity(request):
-    pass
+        
+        queryset = activity.objects.all()
 
-def list_item(request):
-    pass
-""""
-def addTask(request):
+       
+        if isName and string:
+            queryset = queryset.filter(name__icontains=string)
+        if isCategory and string:
+            queryset = queryset.filter(category__icontains=string)
+
+        activityi = queryset.values()  
+        return render(request, 'taskmodule/display_activity.html', {'activity': activityi})
     
-    return render(request, 'taskmodule/tasks.html') # rendering the template
+    return render(request, 'taskmodule/search_filter.html', {})
 
-"""
-def today(request):
-    
-    return render(request, 'taskmodule/today.html') # rendering the template
 
-def projects(request):
-    
-    return render(request, 'taskmodule/projects.html') # rendering the template
 
-def teams(request):
-    
-    return render(request, 'taskmodule/team.html') # rendering the template
 
 def __getTask():
     free_time_activities_list = []
@@ -167,36 +181,6 @@ def __getTask():
     return free_time_activities_list 
 
 
-def search_filter(request):
-    if request.method == "POST":
-        string = request.POST.get('keyword')
-        isName = request.POST.get('option1')
-        isCategory = request.POST.get('option2')
-        
-        
-        # now filter
-        myTask = activity.objects.filter(category__icontains='sport')
-        
-        TaskObjs = activity.objects.filter(Q(category__icontains = 'Learning and Skill Development')&
-        (Q(name__contains = 'a') | Q(name__contains = 'or')) )
-        
-        objs = items.objects.aggregate(count_gt=Count('price', filter=Q(price__gt=0)))
-        
-        number_of_items= items.objects.aggregate(count= Count('id'))
-        
-        total = activity.objects.filter(name__contains = 'a').count()
-        total_ent = activity.objects.filter(category__contains = 'Entertainmen').count()
-        
-        
-        tasks =  __getTask()
-        newTasks = []
-        for item in tasks:
-            contained = False
-            if isName and string in item['name'].lower(): contained = True
-            if not contained and isCategory and string in item['category'].lower():contained = True
-            if contained: newTasks.append(item)
-        return render(request, 'taskmodule/tasks.html',{'tasks': newTasks})
-    return render(request, 'taskmodule/search_filter.html', {}) 
 
 #def task_form(request):
 #    if request.method = "POST":
