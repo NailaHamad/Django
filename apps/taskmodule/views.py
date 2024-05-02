@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import activity, items, task
 from django.db.models import Q
 from django.db.models import Count, Min, Max, Sum, Avg
-
+from .forms import ItemsForm, ActivityForm, TaskForm
 def index(request):
     # study the request
     return render(request, 'taskmodule/index.html') # rendering the template
@@ -37,34 +37,34 @@ def singleactivity(request, tId):
 
 def add_task(request):
     if request.method == 'POST':
-        nameval = request.POST.get('task_name')
-        priorityval = request.POST.get('task_priority')
-        categoryval = request.POST.get('task_category')
- 
-        obj = task.objects.create(name= nameval, priority = priorityval,category = categoryval)
-        obj.save()
-        return redirect('singletask', tId = obj.id)
-    return render(request, "taskmodule/taskform.html", {})
+        form = TaskForm(request.POST)
+        
+        if form.is_valid():
+            obj = form.save()
+            return redirect('item', tId = obj.id )
+    form = TaskForm(None)
+    return render(request, "taskmodule/addtask.html", {})
+
 
 def add_activity(request):
     if request.method == 'POST':
-        nameval = request.POST.get('activity_name')
-        categoryval = request.POST.get('activity_category')
-        obj = activity.objects.create(name= nameval,category = categoryval)
-        obj.save()
-        return redirect('singleactivity', aId = obj.id)
-    return render(request, "taskmodule/taskform.html", {})
-    
+        form = ActivityForm(request.POST)
+        
+        if form.is_valid():
+            obj = form.save()
+            return redirect('item', aId = obj.id )
+    form = ActivityForm(None)
+    return render(request, "taskmodule/addactivity.html", {})
+
 def add_item(request):
     if request.method == 'POST':
-        nameval = request.POST.get('items_name')
-        categoryval = request.POST.get('items_category')
-        priceval = request.POST.get('items_price')
- 
-        obj = items.objects.create(name= nameval,category = categoryval, price = priceval)
-        obj.save()
-        return redirect('singleitem', tId = obj.id)
-    return render(request, "taskmodule/itemform.html", {})
+        form = ItemsForm(request.POST)
+        
+        if form.is_valid():
+            obj = form.save()
+            return redirect('item', iId = obj.id )
+    form = ItemsForm(None)
+    return render(request, "bookmodule/addItem.html", {'form':form})
 
 
 def display_activity(request):
@@ -83,17 +83,16 @@ def display_task(request):
     return render(request,'taskmodule/display_task.html' , context )
 
 
-def update_item(request, tId):
-    obj = items.objects.get(id = tId)
+def update_item(request, iId):
+    obj = items.objects.get(id = iId)
     if request.method == 'POST':
         form = itemform(request.POST, instance=obj)
         if form.is_valid():
             obj.save()
-            return redirect('book', bId = obj.id )
+            return redirect('item', iId = obj.id )
         
-    form = itemform(instance=obj)
+    form = ItemsForm(instance=obj)
     return render(request, "taskmodule/updateitem.html", {'form':form})
-
 
 def search_filter(request):
     if request.method == "POST":

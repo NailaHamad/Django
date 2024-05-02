@@ -1,0 +1,19 @@
+{% extends "layouts/base1.html" %}
+
+{% block title %} Add Task {% endblock %}
+
+{% block stylesheets %}
+<style> 
+</style>
+{% endblock stylesheets %}
+
+
+{% block content %}
+<h3>Add a Task</h3>
+<form method="post">
+    {% csrf_token %}
+    {{form}}
+    <br>
+    <button type="submit">Add</button>
+</form>
+{% endblock content %}
