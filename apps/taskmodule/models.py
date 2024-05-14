@@ -10,7 +10,7 @@ class activity(models.Model):
 class items(models.Model):
     name = models.CharField(max_length=100)
     category = models.CharField(max_length=100)
-    price = models.CharField(max_length=100)
+    price = models.FloatField(default=0.0)
 
     class Meta:
         app_label = 'taskmodule'

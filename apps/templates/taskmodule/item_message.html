@@ -1,0 +1,17 @@
+
+{% extends "layouts/base1.html" %}
+
+{%block title%} task {%endblock%}
+{% block stylesheets %}
+<style>
+    .large-message {
+        font-size: 24px; /* Adjust the font size as needed */
+        font-weight: bold; /* Optional: make the text bold */
+        /* You can add more styles here as per your design */
+    }
+</style>
+{% endblock stylesheets %}
+
+{%block content%}
+<p class="large-message">Please include the item ID in the URL to update: /update_item/item_id</p>
+{%endblock%}

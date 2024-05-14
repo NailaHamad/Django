@@ -21,16 +21,16 @@ def itemform(request):
 
 
 
-def singleitem(request, tId):
-    obj = items.objects.get(id = tId)
+def singleitem(request, iId):
+    obj = items.objects.get(id = iId)
     return render(request, 'taskmodule/singleitem.html', {'item':obj}) # rendering the template
 
 def singletask(request, tId):
     obj = task.objects.get(id = tId)
     return render(request, 'taskmodule/singletask.html', {'task':obj}) # rendering the template
 
-def singleactivity(request, tId):
-    obj = activity.objects.get(id = tId)
+def singleactivity(request, aId):
+    obj = activity.objects.get(id = aId)
     return render(request, 'taskmodule/singleactivity.html', {'activity':obj}) # rendering the template
 
 
@@ -41,9 +41,9 @@ def add_task(request):
         
         if form.is_valid():
             obj = form.save()
-            return redirect('item', tId = obj.id )
+            return redirect('singletask', tId = obj.id )
     form = TaskForm(None)
-    return render(request, "taskmodule/addtask.html", {})
+    return render(request, "taskmodule/addtask.html", {'form':form})
 
 
 def add_activity(request):
@@ -52,9 +52,9 @@ def add_activity(request):
         
         if form.is_valid():
             obj = form.save()
-            return redirect('item', aId = obj.id )
+            return redirect('singleactivity', aId = obj.id )
     form = ActivityForm(None)
-    return render(request, "taskmodule/addactivity.html", {})
+    return render(request, "taskmodule/addactivity.html", {'form':form})
 
 def add_item(request):
     if request.method == 'POST':
@@ -62,9 +62,9 @@ def add_item(request):
         
         if form.is_valid():
             obj = form.save()
-            return redirect('item', iId = obj.id )
+            return redirect('singleitem', iId = obj.id )
     form = ItemsForm(None)
-    return render(request, "bookmodule/addItem.html", {'form':form})
+    return render(request, "taskmodule/addItem.html", {'form':form})
 
 
 def display_activity(request):
@@ -86,13 +86,17 @@ def display_task(request):
 def update_item(request, iId):
     obj = items.objects.get(id = iId)
     if request.method == 'POST':
-        form = itemform(request.POST, instance=obj)
+        form = itemform(request.POST, instance= obj)
         if form.is_valid():
             obj.save()
-            return redirect('item', iId = obj.id )
+            return redirect('singleitem', iId = obj.id )
         
     form = ItemsForm(instance=obj)
     return render(request, "taskmodule/updateitem.html", {'form':form})
+
+
+def update_item_message(request):
+    return render(request,'taskmodule/item_message.html' )
 
 def search_filter(request):
     if request.method == "POST":
@@ -115,72 +119,3 @@ def search_filter(request):
     return render(request, 'taskmodule/search_filter.html', {})
 
 
-
-
-def __getTask():
-    free_time_activities_list = []
-    act1 = {'name':'Running in the park', 'category': 'Sports and Fitness'}
-    free_time_activities_list.append(act1)
-    act2 = {'name':'Yoga or meditation session', 'category': 'Sports and Fitness'}
-    act3 = {'name':'Playing basketball or soccer', 'category': 'Sports and Fitness'}
-    act4 = {'name':'Cycling or hiking trails', 'category': 'Sports and Fitness'} 
-    
-    act5 = {'name':'Painting or drawing', 'category': 'Hobbies and Crafts'}
-    act6 = {'name':'Knitting or crocheting', 'category': 'Hobbies and Crafts'}
-    act7 = {'name':'Woodworking or DIY projects', 'category': 'Hobbies and Crafts'}
-    act8 = {'name':'Gardening or planting', 'category': 'Hobbies and Crafts'}
-    
-    
-    act9 = {'name':'Watching a movie or TV series', 'category': 'Entertainmen'}  
-    act10 = {'name':'Playing video games', 'category': 'Entertainmen'}
-    act11 = {'name':'Listening to music or podcasts', 'category': 'Entertainmen'}
-    act12 = {'name':'Reading a book or magazine', 'category': 'Entertainmen'} 
-    
-    
-    act13 = {'name':'Online courses or tutorials', 'category': 'Learning and Skill Development'} 
-    act14 = {'name':'Learning a new language', 'category': 'Learning and Skill Development'} 
-    act15 = {'name':'Coding or programming projects', 'category': 'Learning and Skill Development'} 
-    act16 = {'name':'Cooking or baking new recipes', 'category': 'Learning and Skill Development'} 
-    
-    
-    act17 = {'name': 'Organizing a virtual hangout with friends', 'category': 'Social Activities'}
-    act18 = {'name': 'Attending a local community event', 'category': 'Social Activities'}
-    act19 = {'name': 'Volunteering for a cause', 'category': 'Social Activities'}
-    act20 = {'name': 'Hosting a game night or potluck', 'category': 'Social Activities'}
-    
-    
-    act21 = {'name': 'Taking a bubble bath', 'category': 'Relaxation and Self-care'}
-    act22 = {'name': 'Practicing mindfulness or meditation', 'category': 'Relaxation and Self-care'}
-    act23 = {'name': 'Pampering with skincare or spa treatments', 'category': 'Relaxation and Self-care'}
-    act24 = {'name': 'Journaling or writing reflections', 'category': 'Relaxation and Self-care'}
-    free_time_activities_list.append(act2)
-    free_time_activities_list.append(act3)
-    free_time_activities_list.append(act4)
-    free_time_activities_list.append(act5)
-    free_time_activities_list.append(act6)
-    free_time_activities_list.append(act7)
-    free_time_activities_list.append(act8)
-    free_time_activities_list.append(act9)
-    free_time_activities_list.append(act10)
-    free_time_activities_list.append(act11)
-    free_time_activities_list.append(act12)
-    free_time_activities_list.append(act13)
-    free_time_activities_list.append(act14)
-    free_time_activities_list.append(act15)
-    free_time_activities_list.append(act16)
-    free_time_activities_list.append(act17)
-    free_time_activities_list.append(act18)
-    free_time_activities_list.append(act19)
-    free_time_activities_list.append(act20)
-    free_time_activities_list.append(act21)
-    free_time_activities_list.append(act22)
-    free_time_activities_list.append(act23)
-    free_time_activities_list.append(act24)
-    
-    return free_time_activities_list 
-
-
-
-#def task_form(request):
-#    if request.method = "POST":
-#        value = request.POST.get('task_name')

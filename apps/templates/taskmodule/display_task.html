@@ -3,24 +3,6 @@
 {%block title%} task {%endblock%}
 {% block stylesheets %}
 <style>
-    <!--{% comment "" %}  #activity-table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-    #activity-table th, #activity-table td {
-        border: 1px solid black;
-        padding: 8px;
-        text-align: left;
-    }
-    #activity-table th {
-        background-color: #f2f2f2; 
-        color: black;
-    }
-    #activity-table tr:nth-child(even) {
-        background-color: #f2f2f2; 
-    }
-    id="activity-table"
-    {% endcomment %}-->
     table {
         width: 100%;
         border-collapse: collapse;
@@ -40,18 +22,19 @@
 {% endblock stylesheets %}
 
 {%block content%}
-<table>
+<h1>Tasks List</h1>
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>priority</th>
+        <th>category</th>
+    </tr>
+    {% for t in task %}
         <tr>
-            <th>name</th>
-            <th>priority</th>
-            <th>category</th>
+            <td>{{t.name}}</td>
+            <td>{{t.priority}}</td>
+            <td>{{t.category}}</td>
         </tr>
-        {% for act in activities %}
-        <tr>
-            <td> {{act.name}}</td>
-            <td> {{act.priority}}</td>
-            <td> {{act.category}} </td>
-        </tr>
-        {%endfor%}
+    {%endfor%}
 </table>
 {%endblock%}

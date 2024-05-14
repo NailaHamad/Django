@@ -12,7 +12,6 @@ class ActivityForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
                 'placeholder':'Enter the name',
-                'class':'activityclass',
                 'id':'nameid',
             }
         )
@@ -35,7 +34,6 @@ class ItemsForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
                 'placeholder':'Enter the name',
-                'class':'Itemsclass',
                 'id':'nameid',
             }
         )
@@ -65,7 +63,6 @@ class TaskForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
                 'placeholder':'Enter the name',
-                'class':'Taskclass',
                 'id':'nameid',
             }
         )
@@ -78,7 +75,6 @@ class TaskForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
                 'placeholder':'Enter the priority',
-                'class':'Taskclass',
                 'id':'priorityid',
             }
         )

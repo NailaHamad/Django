@@ -1,26 +1,8 @@
 {% extends "layouts/base1.html" %}
 
-{%block title%} task {%endblock%}
+{%block title%} item {%endblock%}
 {% block stylesheets %}
 <style>
-    <!--{% comment "" %}  #activity-table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-    #activity-table th, #activity-table td {
-        border: 1px solid black;
-        padding: 8px;
-        text-align: left;
-    }
-    #activity-table th {
-        background-color: #f2f2f2; 
-        color: black;
-    }
-    #activity-table tr:nth-child(even) {
-        background-color: #f2f2f2; 
-    }
-    id="activity-table"
-    {% endcomment %}-->
     table {
         width: 100%;
         border-collapse: collapse;
@@ -40,18 +22,19 @@
 {% endblock stylesheets %}
 
 {%block content%}
-<table>
+<h1>Items List</h1>
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Price</th>
+    </tr>
+    {% for i in items %}
         <tr>
-            <th>name</th>
-            <th>category</th>
-            <th>price</th>
+            <td>{{i.name}}</td>
+            <td>{{i.category}}</td>
+            <td>{{i.price}}</td>
         </tr>
-        {% for act in activities %}
-        <tr>
-            <td> {{act.name}}</td>
-            <td> {{act.category}} </td>
-            <td> {{act.price}}</td>
-        </tr>
-        {%endfor%}
+    {%endfor%}
 </table>
 {%endblock%}
