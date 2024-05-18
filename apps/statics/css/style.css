@@ -1,0 +1,24 @@
+header {
+    background-color: #FBDBDB;
+    padding: 10px;
+    text-align: center;
+}
+
+h1 {
+    margin: 0;
+    color: #FF9494; /* You can move the color styling here */
+}
+
+.nav-links {
+    list-style-type: none;
+    padding: 0;
+}
+
+.nav-links li {
+    display: inline;
+    margin-right: 20px;
+}
+
+.nav-links li:last-child {
+    margin-right: 0;
+}
