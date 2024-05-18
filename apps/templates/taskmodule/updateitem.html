@@ -1,4 +1,4 @@
-{% extends "layouts/base1.html" %}
+{% extends "layouts/base2.html" %}
 
 {% block title %} Update Item {% endblock %}
 
@@ -17,4 +17,40 @@
     <button type="submit">Update</button>
 </form>
 <hr> 
-{% endblock %}
+<table>
+   <tr>
+      <form method="post">
+         {% csrf_token %}
+         <td>
+            <label style="color:firebrick;" for="input_check">
+            <input style="vertical-align: -2px;" type="checkbox" id="input_check" name="delete_checked" />
+            <b>Delete Item</b>
+            </label>
+         </td>
+         <td>
+            <button type="submit" id="delete_button" name="delete">Delete</button>
+         </td>
+      </form>
+   </tr>
+</table>
+
+{% endblock content %}
+
+
+{% block javascripts %}
+<script>
+    const check = document.querySelector('#input_check');
+    const button = document.querySelector('#delete_button');
+
+    button.style.visibility = 'hidden';
+   
+    check.addEventListener('change', () => {
+     if (check.checked) {
+         button.style.visibility = 'visible';
+     } else {
+       button.style.visibility = 'hidden';
+     }
+    });
+</script>
+{% endblock javascripts %}
+

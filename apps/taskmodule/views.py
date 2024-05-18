@@ -86,7 +86,7 @@ def display_task(request):
 def update_item(request, iId):
     obj = items.objects.get(id = iId)
     if request.method == 'POST':
-        form = itemform(request.POST, instance= obj)
+        form = ItemsForm(request.POST, instance= obj)
         if form.is_valid():
             obj.save()
             return redirect('singleitem', iId = obj.id )
