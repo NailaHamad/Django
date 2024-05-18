@@ -1,0 +1,54 @@
+{% extends "layouts/base1.html" %}
+
+{%block title%} task {%endblock%}
+{% block stylesheets %}
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      
+      th, td {
+        border: 1px solid #FF9494; 
+        padding: 8px;
+        text-align: left;
+      }
+      
+      th {
+        background-color: #FF9494; 
+        color: white; 
+      }
+</style>
+{% endblock stylesheets %}
+
+{%block content%}
+
+
+<h1>Statistics</h1>
+    <table>
+        <tr>
+            <th>Statistic</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td>Total Items</td>
+            <td>{{ stats.total_count }}</td>
+        </tr>
+        <tr>
+            <td>Minimum Price</td>
+            <td>{{ stats.min_price }}</td>
+        </tr>
+        <tr>
+            <td>Maximum Price</td>
+            <td>{{ stats.max_price }}</td>
+        </tr>
+        <tr>
+            <td>Total Price</td>
+            <td>{{ stats.total_price }}</td>
+        </tr>
+        <tr>
+            <td>Average Price</td>
+            <td>{{ stats.avg_price }}</td>
+        </tr>
+    </table>
+{%endblock%}

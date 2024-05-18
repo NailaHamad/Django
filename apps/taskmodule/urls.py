@@ -18,4 +18,5 @@ urlpatterns = [
     path('search',views.search_filter),
     path('update_item/<int:iId>', views.update_item, name= 'update_item'),
     path('update_item_message', views.update_item_message, name= 'update_item_message'),
+    path('summary_stats', views.summary_stats, name= 'summary_stats'),
 ] 

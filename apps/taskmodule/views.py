@@ -119,3 +119,13 @@ def search_filter(request):
     return render(request, 'taskmodule/search_filter.html', {})
 
 
+def summary_stats(request):
+    stats = items.objects.aggregate(
+        total_count=Count('id'),  
+        min_price=Min('price'), 
+        max_price=Max('price'),  
+        total_price=Sum('price'),  
+        avg_price=Avg('price')  
+    )
+
+    return render(request, 'taskmodule/stats.html', {'stats': stats})
